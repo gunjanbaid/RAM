@@ -17,7 +17,6 @@ from tensorflow.examples.tutorials.mnist import input_data
 logging.getLogger().setLevel(logging.INFO)
 
 rnn_cell = tf.nn.rnn_cell
-# seq2seq = tf.nn.seq2seq
 seq2seq = tf.contrib.legacy_seq2seq
 
 mnist = input_data.read_data_sets('MNIST_data', one_hot=False)
@@ -69,7 +68,6 @@ for t, output in enumerate(outputs[1:]):
   baseline_t = tf.nn.xw_plus_b(output, w_baseline, b_baseline)
   baseline_t = tf.squeeze(baseline_t)
   baselines.append(baseline_t)
-# baselines = tf.pack(baselines)  # [timesteps, batch_sz]
 baselines = tf.stack(baselines)  # [timesteps, batch_sz]
 baselines = tf.transpose(baselines)  # [batch_sz, timesteps]
 
